@@ -31,8 +31,14 @@ export class RNS3 {
       key: (options.keyPrefix || '') + file.name,
       contentType: file.type
     });
+    
+    let url 
+    if (options.pathStyleUrl) {
+      url = `https://${options.awsUrl || 's3.amazonaws.com'}/${ options.bucket }`;
+    } else {
+      url = `https://${ options.bucket }.${options.awsUrl || 's3.amazonaws.com'}`;
+    }
 
-    let url = `https://${ options.bucket }.${options.awsUrl || 's3.amazonaws.com'}`;
     let method = "POST";
     let policy = S3Policy.generate(options);
 
